@@ -19,8 +19,6 @@ Note: Please check and note the region of your Kubernetes cluster, as we need to
 Note: service creation in the region of your Kubernetes cluster.
 
 
-
-
 ### Setup a Container Registry Service
 
 As a prerequisite we require a Continuous Delivery service on IBM Cloud, to create & run the pipeline
@@ -34,9 +32,50 @@ Note: Please choose the region on top left, same as your Kubernetes cluster.
 
 3. Let us create a `namespace` for our lab today, which will help us to map our git repositories and container images.
 Click on `Namespaces` tab and click on it.
+
 ![CR](img/cr-namespace.png)
-On the lower right, we will have to click on `Create namespace`. for example `hello`
+
+On the lower right, we will have to click on `Create namespace`. for example `hellocicd`
+Note: Very unique name required.
+
 ![CR](img/cr-namespace-create.png)
 
 
-### Setup our Delivery Pipeline using IBM Toolchain Service.
+### Setup our Integration and Delivery Pipeline using IBM Toolchain Service.
+
+We will now setup the Integration & delivery pipeline for our application.
+
+* The pipeline will check for every latest code commit into the repository and compile it.
+* Run the unit tests, build the container image.
+* Push the image to container registry to keep the updated versions of the code
+* Deploy the image to Kubernetes cluster.
+
+
+1. Go to your [kubernetes cluster](https://cloud.ibm.com/kubernetes/clusters) and select your cluster name. for example: `mycluster` here
+After this click on `DevOps` tab, to setup the pipeline.
+ ![kube-devops](img/kube-devops.png)
+
+2. For our lab, we will build & deploy `Develop a Kubernetes App`
+ ![kube-app](img/kube-app.png)
+
+3. We have to get our delivery pipeline ready. This service will help us to create our code's git repo, Eclipse IDE for code changes also.
+ ![create-app](img/create-app.png)
+
+- Select `Delivery Pipeline`. Create `IBM Cloud API Key` -> `Create` -> `Create`
+  This will auto-generate a unique API key.
+- Enter the `Container registry namespace` - `hellocicd`, which we created earlier.
+- Enter the `cluster namespace` - `hellocicd`. A default namespace will be created, if not provided.
+- Click on `Create` to create the toolchain.
+
+4. IBM toolchain creates a github repository, issue tracking, Eclipse Web IDE, and Delivery pipeline
+![toolchain-ready](img/toolchain-ready.png)
+  - Click on Delivery Pipeline to view the stages `BUILD`, `CONTAINERISE`, `DEPLOY`
+  - Once all the stages are complete.
+  On the **DEPLOY** stage, click **View logs and history**. The DEPLOY stage deploys the app into the Kubernetes cluster. Select the “Deploy to Kubernetes” job, and scroll to the bottom of the log file to find the link to IP:PORT.
+  ![kube-deploy-complete](img/kube-deploy-complete.png)
+  ![kube-deploy-log](img/kube-deploy-log.png)
+
+  - Browse to IP:PORT to see the running application
+  ![kube-running](img/secure-kube-running.png)
+
+Note: We can find all our existing [Toolchains here](https://cloud.ibm.com/devops/toolchains)
