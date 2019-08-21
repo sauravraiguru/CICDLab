@@ -11,11 +11,11 @@ As a prerequisite we require a Continuous Delivery service on IBM Cloud, to crea
 Note: Please check and note the region of your Kubernetes cluster, as we need to create a delivery pipeline
 
 1. Lets go to [IBM Cloud Catalog](https://cloud.ibm.com/catalog) and search for ```Continuous Delivery``` OR directly go to [Continuous Delivery Service](https://cloud.ibm.com/catalog/services/continuous-delivery)
-2. Select the region and create the service. Optionally, you can add any tag if required.
+2. [Select the region and create the service](img/cd-create.PNG) Optionally, you can add any tag if required.
 ![](img/cd-create.PNG)
 
 Note: service creation in the region of your Kubernetes cluster.
-3. 
+3.
 
 
 
