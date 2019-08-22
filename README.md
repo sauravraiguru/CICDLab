@@ -104,9 +104,7 @@ Since, we have deployed a containerised code to our Kubernetes cluster. Our **ob
 
 
 5. Once code commit is done, we can go back to our delivery pipeline to see that it has kicked off again.
-
-
- ![re-deploy-kickoff](img/re-deploy-kickoff.png)
+![re-deploy-kickoff](img/re-deploy-kickoff.png)
 
 6. When we reach the `DEPLOY` stage, we can see how the new image is being replaced with the older version, without a service disruption, with the kube proxy routing the traffic to the new pods.
 
