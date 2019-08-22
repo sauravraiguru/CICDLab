@@ -33,12 +33,12 @@ Note: Please choose the region on top left, same as your Kubernetes cluster.
 3. Let us create a `namespace` for our lab today, which will help us to map our git repositories and container images.
 Click on `Namespaces` tab and click on it.
 
-![CR](img/cr-namespace.png)
+ ![CR](img/cr-namespace.png)
 
-On the lower right, we will have to click on `Create namespace`. for example `hellocicd`
-Note: Very unique name required.
+ On the lower right, we will have to click on `Create namespace`. for example `hellocicd`
+ Note: Very unique name required.
 
-![CR](img/cr-namespace-create.png)
+ ![CR](img/cr-namespace-create.png)
 
 
 ### Setup our Integration and Delivery Pipeline using IBM Toolchain Service.
