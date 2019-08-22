@@ -51,7 +51,7 @@ We will now setup the Integration & delivery pipeline for our application.
 * Deploy the image to Kubernetes cluster.
 
 
-1. Go to your [kubernetes cluster](https://cloud.ibm.com/kubernetes/clusters) and select your cluster name. for example: `mycluster` here
+1. Go to your [kubernetes cluster](https://cloud.ibm.com/kubernetes/clusters) and select your cluster name. for example: `mycluster` here.
 After this click on `DevOps` tab, to setup the pipeline.
  ![kube-devops](img/kube-devops.png)
 
@@ -79,3 +79,60 @@ After this click on `DevOps` tab, to setup the pipeline.
   ![kube-running](img/secure-kube-running.png)
 
 Note: We can find all our existing [Toolchains here](https://cloud.ibm.com/devops/toolchains)
+
+### Make changes to our Integration and Delivery Pipeline using IBM Toolchain Service.
+
+Since, we have deployed a containerised code to our Kubernetes cluster. Our **objective** now will be to make changes to it and see and understand
+- If its getting re-deployed to the cluster again with a new image version rollout, as soon as there is a new code commit.
+- If there is any application downtime on due to the version change, on a container environment.
+
+1. Let us go back to our Toolchain page. If unable to go back then, we can always reach there [Toolchains](https://cloud.ibm.com/devops/toolchains) OR DevOps tab of our Kubernetes cluser (in this case `mycluster`) and find our pipeline project.
+
+
+2. Click on `Git` to open our repository and make changes to it using the online editor.
+![toolchain-ready](img/toolchain-ready.png)
+
+
+3. We can search for a file named `app.js` and click on it.
+
+ ![app-js](img/appjs.png)
+
+
+4. and make changes to a UI text, let says change `with Docker` to `with Docker and Kubernetes` and click on commit changes.
+
+ ![app-commit](img/app-commit.png)
+
+
+5. Once code commit is done, we can go back to our delivery pipeline to see that it has kicked off again.
+
+
+ ![re-deploy-kickoff](img/re-deploy-kickoff.png)
+
+6. When we reach the `DEPLOY` stage, we can see how the new image is being replaced with the older version, without a service disruption, with the kube proxy routing the traffic to the new pods.
+
+ ![re-kube-deploy-kickoff](img/re-kube-deploy-kickoff.png)
+
+At this juncture we can test the below command in to see - `pod replacement after new pods are created & up - running`
+
+```console
+$ kubectl get pods -n hellocicd
+NAME                         READY   STATUS              RESTARTS   AGE
+hello-app-5f64b4f899-8zfxd   1/1     Terminating         0          24h
+hello-app-5f64b4f899-zqt7n   1/1     Running             0          24h
+hello-app-986dcfbc9-bphb2    0/1     ContainerCreating   0          1s
+hello-app-986dcfbc9-l2j8w    0/1     ContainerCreating   0          1s
+```
+
+```console
+$ kubectl get pods -n hellocicd
+NAME                         READY   STATUS        RESTARTS   AGE
+hello-app-5f64b4f899-8zfxd   1/1     Terminating   0          24h
+hello-app-5f64b4f899-zqt7n   1/1     Terminating   0          24h
+hello-app-986dcfbc9-bphb2    1/1     Running       0          5s
+hello-app-986dcfbc9-l2j8w    1/1     Running       0          5s
+```
+Note: Kubernetes has created the new pods (i.e 5s)
+
+- Alternatively, we can keeping refreshing the UI browser, to suddenly see a `new UI change without any service downtime` of the application.
+
+ ![ui-change](img/ui-change.png)
