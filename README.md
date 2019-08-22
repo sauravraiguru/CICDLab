@@ -110,8 +110,8 @@ Since, we have deployed a containerised code to our Kubernetes cluster. Our **ob
 
  ![re-kube-deploy-kickoff](img/re-kube-deploy-kickoff.png)
 
-At this juncture we can test the below command in to see - `pod replacement after new pods are created & up - running`
-
+At this juncture we can test the below command in to see - `pod replacement after new pods are created & up - running.`
+We can see it pods being transitioned below...
 ```console
 $ kubectl get pods -n hellocicd
 NAME                         READY   STATUS              RESTARTS   AGE
@@ -129,8 +129,15 @@ hello-app-5f64b4f899-zqt7n   1/1     Terminating   0          24h
 hello-app-986dcfbc9-bphb2    1/1     Running       0          5s
 hello-app-986dcfbc9-l2j8w    1/1     Running       0          5s
 ```
+
+```console
+kubectl get pods -n hellocicd
+NAME                        READY   STATUS    RESTARTS   AGE
+hello-app-986dcfbc9-bphb2   1/1     Running   0          30m
+hello-app-986dcfbc9-l2j8w   1/1     Running   0          30m
+```
 Note: Kubernetes has created the new pods (i.e 5s)
 
-- Alternatively, we can keeping refreshing the UI browser, to suddenly see a `new UI change without any service downtime` of the application.
+Alternatively, we can keeping refreshing the UI browser, to suddenly see a `new UI change without any service downtime` of the application.
 
  ![ui-change](img/ui-change.png)
