@@ -22,7 +22,7 @@ Note: service creation in the region of your Kubernetes cluster.
 ### Setup a Container Registry Service
 
 As a prerequisite we require a Continuous Delivery service on IBM Cloud, to create & run the pipeline
-Note: Please check and note the region of your Kubernetes cluster, as we need to create
+Note: Please check and note the region of your Kubernetes cluster, as we need to create.
 
 1.  Lets go to [IBM Cloud Catalog](https://cloud.ibm.com/catalog) and search for ```Container Registry``` OR directly go to [Container Registry Service](https://cloud.ibm.com/kubernetes/catalog/registry)
 
